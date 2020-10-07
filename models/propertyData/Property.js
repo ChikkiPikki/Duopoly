@@ -8,8 +8,8 @@ var Property = new mongoose.Schema({
 	mortgageValue: Number,
 	ownedBy: { 
 		id:{
-			type: mongoose.Schema.types.ObjectId,
-			ref: "Player"
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "LivePlayer"
 
 		},
 		name: String
@@ -23,8 +23,8 @@ var Property = new mongoose.Schema({
 	hotel: Boolean,
 	personOn: {
 		id:{
-		ref: "Player"
-		type: mongoose.Schema.types.ObjectId,
+		ref: "LivePlayer"
+		type: mongoose.Schema.Types.ObjectId,
 
 		},
 		name: String

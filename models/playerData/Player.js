@@ -3,15 +3,19 @@ var mongoose = require("mongoose");
 
 
 var Player = new mongoose.Schema({
+	uuid: String,
 	name: String,
 	password: String,
 	lastOnline: Date,
 	games: [{
-		type: mongoose.Schema.types.ObjectId,
-		ref: "Game",
+		id:{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Game"
+		},
+		host: Boolean
 	}],
 	friends: [{
-		type: mongoose.Schema.types.objectId,
+		type: mongoose.Schema.Types.objectId,
 		ref: "Player"
 	}],
 

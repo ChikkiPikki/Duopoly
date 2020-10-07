@@ -1,3 +1,7 @@
+var propertyList = [];
+var utilityList = [];
+var stationList =[];
+
 class Property{
 	constructor(name, price,  upgradePrice, type, rents, position){
 		this.name = name;
@@ -13,6 +17,8 @@ class Property{
 		this.rents = rents;
 		this.mortgageValue = this.price/2;
 		this.position = position;
+		propertyList.append(this);
+
 	}
 };
 
@@ -22,17 +28,18 @@ class Utility{
 		this.price = price;
 		this.position = position;
 		this.rent = rent;
-		this.mortgageValue = this.price/2
+		this.mortgageValue = this.price/2;
+		utilityList.append(this);
 	}
 };
 
 class Station{
-	constructor(name,  position, rent){
+	constructor(name,  position){
 		this.name = name;
 		this.price = 200;
 		this.position = position;
-		this.rent = rent;
 		this.mortgageValue = this.price/2
+		stationList.append(this);
 	}
 }
 var utility_electric_company = new Utility("Electric Company", 150,13, [4, 10]);
@@ -65,26 +72,18 @@ var red_strand = new Property("Strand", 220, 150, "red", [18, 36, 90, 250, 700, 
 var red_trafalagur_square = new Property("Trafalagur Square", 240, 150, "red", [20, 40, 100, 300, 750, 925, 1100],25);
 
 var yellow_coventry_street = new Property("Coventry Street", 260, 150, "yellow", [22, 44, 110, 330, 800, 975, 1150], 28);
-var yellow_leicester_square = new Property("Leicester Square", 260, "yellow", [22, 44, 110, 330, 800, 975, 1150], 27);
-var yellow_piccadilly = new Property("Picadilly", 280, "yellow", [24, 48, 120, 360, 850, 1025, 1200], 29);
+var yellow_leicester_square = new Property("Leicester Square", 260, 150, "yellow", [22, 44, 110, 330, 800, 975, 1150], 27);
+var yellow_piccadilly = new Property("Picadilly", 280, 150, "yellow", [24, 48, 120, 360, 850, 1025, 1200], 29);
 
-var station_fenchurch_st = new
+var station_fenchurch_st = new Station("Fenchurch St. Station", 26);
+var station_kings_cross = new Station("Kings's Cross Station", 6 );
+var station_liverpool_st = new Station("Liverpool St. Station", 36);
+var station_marylebone = new Station("Marylebone Station");
 
 module.exports = {[
-		blue_euston_road, blue_pentoville_road, blue_the_angel_islington, 
-		pink_whitehall, pink_northumberland_avenue, pink_pall_mall,
-		brown_whitechapel_road, brown_old_kent_road,
-		dark_blue_mayfair, dark_blue_park_lane,
-		green_bond_street, green_regent_street, green_oxford_street,
-		orange_vine_street, orange_malborough_street, orange_bow_street,
-		red_strand, red_trafalagur_square, red_fleet_street,
-		yellow_leicester_square, yellow_piccadilly, yellow_coventry_street
+			propertyList, stationList, utilityList
 
-	],[
-		utility_water_works,
-		utility_electric_company
-	]};
-
+		]}
 
 
 

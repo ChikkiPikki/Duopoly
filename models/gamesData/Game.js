@@ -14,7 +14,7 @@ var Game = new mongoose.Schema({
 	host: {
 		id: {
 
-			type: mongoose.Schema.types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: "Player"
 		},
 			name: String

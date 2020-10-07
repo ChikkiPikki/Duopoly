@@ -5,17 +5,21 @@ var Station = mongoose.Schema({
 	price: Number,
 	personOn:{
 		id:{
-			type: mongoose.Schema.types.ObjectId,
-			ref: "Player"
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "LivePlayer"
 		},
 		name: String
 	},
 	ownedBy:{
 		id:{
-			type: mongoose.Schema.types.ObjectId,
-			ref: "Player"
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "LivePlayer"
 		},
 		name: String
 	},
-	otherProperties: Number
-})
+	otherStations: Number
+	rent: [25, 50, 100, 200][this.otherStations]
+});
+
+
+module.exports = mongoose.model("Station", Station);

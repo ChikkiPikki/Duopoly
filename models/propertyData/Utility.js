@@ -9,21 +9,22 @@ var Utility = new mongoose.Schema({
 	position: Number,
 	ownedBy:{
 		id:{
-			type: mongoose.Schema.types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: "LivePlayer"
 
 		},
-		name: String
+		name: String,
 	},
 	personOn:{
 		id:{
-			type: mongoose.Schema.types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: "LivePlayer"
 
 		},
-		name: String
+		name: String,
+		rolled: Number
 	},
-	rent: [Number],
+	
 	numberRolled: Number,
 	otherUtilities: Boolean,	
 });
