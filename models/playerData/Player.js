@@ -2,17 +2,17 @@ var mongoose = require("mongoose");
 
 
 
-var Player = mongoose.Schema({
+var Player = new mongoose.Schema({
 	name: String,
 	password: String,
 	lastOnline: Date,
 	games: [{
-		// type: mongoose.Schema.types.ObjectId,
-		// ref: Game
+		type: mongoose.Schema.types.ObjectId,
+		ref: "Game",
 	}],
 	friends: [{
-		// type: mongoose.Schema.types.objectId,
-		// ref: Player
+		type: mongoose.Schema.types.objectId,
+		ref: "Player"
 	}],
 
 });

@@ -5,7 +5,10 @@ var mongoose 	 = require("mongoose");
 var bodyParser 	 = require("body-parser");
 var cookieParser = require('cookie-parser');
 var mongoose 	 = require("mongoose");
+var passport 	 = require("passport");
+var LocalStrategy= require("passport-local")
 var app 		 = express();
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -32,9 +35,9 @@ app.get("/play-monopoly", (req, res)=>{
 });
 
 app.post("/play-monopoly", (req, res)=>{
-	let userName = req.body.name;
+	let name = req.body.name;
 	let password = req.body.password;
-	Player.find({password: password}, (err, data)=>{
+	Player.findOne({name: name}, (err, data)=>{
 		if(err){
 			res.render("register-page", {message: "Someone is already registered with this name, please try something else"})
 		}else{
@@ -45,7 +48,7 @@ app.post("/play-monopoly", (req, res)=>{
 					})
 
 				}else{
-					res.render("register-page", {meessage:"Someone is already registered with this name, please try something else"})
+					res.render("register-page", {message:"Someone is already registered with this name, please try something else"})
 				}
 			})
 		}
