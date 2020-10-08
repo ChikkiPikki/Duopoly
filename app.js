@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 
 app.set("view engine", "ejs");
+app.use("/resources",express.static('resources'))
 
 
 var store = new MongoDBStore({
@@ -63,18 +64,18 @@ app.post("/register", (req, res) => {
 
 app.get("/create-game/:name", (req, res) => {
     if (!(req.signedCookies.uuid)) {
-        res.redirect("/");
+         res.render("login-signup-page", {message: "Please Sign-in or Register before Playing", redirectGame: req.params.name, method: "create"})
     }
 
     Player.findOne({
         uuid: req.signedCookies.uuid
     }, (err, foundPlayer) => {
-        if (err) {
+        if (err||!(foundPlayer)) {
             res.redirect("/")
         } else {
             Game.create({
-                code: 
-                date: Date(),
+                code: req.params.code,
+                date: new Date(),
                 startedOrEnded: false
                  
             }, (err, newGame) => {
@@ -101,7 +102,7 @@ app.get("/create-game/:name", (req, res) => {
                     	foundPlayer.save();
                     	newGame.host = {id:foundPlayer._id, name:foundPlayer.name};
                     	newGame.save()
-                    	res.render("game", {hostPlayer: });
+                    	res.render("game", {hostPlayer: createdLivePlayer});
                     	newGame.players.append({id:createdLivePlayer._id, name: createdLivePlayer.details.name})
                     });
                     
@@ -115,14 +116,14 @@ app.get("/create-game/:name", (req, res) => {
 
 app.get("/join-game/:name", (req, res) => {
     if (!(req.signedCookies.uuid)) {
-        res.redirect("/")
+        res.render("login-signup-page", {message: "Please Sign-in or Register before Playing", redirectGame: req.params.name, method: "join"})
     }
 
     Player.findOne({
         uuid: req.signedCookies.uuid
     }, (err, foundPlayer) => {
-        if (err) {
-            res.redirect("back")
+        if (err||!(foundPlayer)) {
+            res.render("login-signup-page", {message: "Please Sign-in or Register before Playing"})
         } else {
             Game.findOne({
                 code: req.params.name,
@@ -140,7 +141,7 @@ app.get("/join-game/:name", (req, res) => {
                         game: {
                             id: foundGame._id,
                             code: foundGame.code
-                        }
+                        },
                         notes: [5, 5, 6, 2, 2, 2],
                         isOnPosition: 1
                     }, (err, createdLivePlayer)=>{
@@ -165,6 +166,9 @@ app.get("/start-game", (req, res)=>{
 
 });
 
+app.get("/asdf", (req, res)=>{
+	res.render("sample")
+});
 
 app.listen(process.env.PORT, () => {
     console.log('Process begun');
