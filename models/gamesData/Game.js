@@ -17,9 +17,11 @@ var Game = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Player"
 		},
-			name: String
+			liveName: String,
+
 		},
-	log: []
+	log: [],
+	startedOrEnded: Boolean
 
 });
 

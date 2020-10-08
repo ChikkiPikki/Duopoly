@@ -12,9 +12,9 @@ var Player = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Game"
 		},
-		host: Boolean
+		wasHost: Boolean
 	}],
-	friends: [{
+	friends: [id:{
 		type: mongoose.Schema.Types.objectId,
 		ref: "Player"
 	}],
