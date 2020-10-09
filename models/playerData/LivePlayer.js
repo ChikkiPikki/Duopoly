@@ -42,7 +42,8 @@ var LivePlayer = mongoose.Schema({
 			ref: "LivePlayer"
 		},
 		debt: Number
-	}]
+	}],
+	piece: String
 });	
 
 module.exports = mongoose.model("LivePlayer", LivePlayer);

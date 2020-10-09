@@ -10,7 +10,6 @@ var session = require("express-session");
 var MongoDBStore = require('connect-mongodb-session')(session);
 var app = express();
 
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -82,18 +81,20 @@ app.get("/create-game/:name", (req, res) => {
                 if (err) {
                     res.redirect("/")
                 } else {
+                	
                     LivePlayer.create({
                         details: {
                             id: foundPlayer._id,
                             name: foundPlayer.name
-                        }, //area of doubt
+                        }, 
                         isHost: true,
                         game: {
                             id: newGame._id,
                             code: newGame.code
                         },
                         notes: [5, 5, 6, 2, 2, 2],
-                        isOnPosition: 1
+                        isOnPosition: 1,
+                        piece: newGame.pieces[0]
                     }, (err, createdLivePlayer)=>{
                     		foundPlayer.games.append({
                         	id: newGame._id,
@@ -101,9 +102,10 @@ app.get("/create-game/:name", (req, res) => {
                     	});
                     	foundPlayer.save();
                     	newGame.host = {id:foundPlayer._id, name:foundPlayer.name};
+                        newGame.players.append({id:createdLivePlayer._id, name: createdLivePlayer.details.name});
                     	newGame.save()
-                    	res.render("game", {hostPlayer: createdLivePlayer});
-                    	newGame.players.append({id:createdLivePlayer._id, name: createdLivePlayer.details.name})
+                    	res.render("game", {player: createdLivePlayer, piece: createdLivePlayer.piece});
+
                     });
                     
                 };
@@ -143,14 +145,15 @@ app.get("/join-game/:name", (req, res) => {
                             code: foundGame.code
                         },
                         notes: [5, 5, 6, 2, 2, 2],
-                        isOnPosition: 1
+                        isOnPosition: 1,
+                        piece: foundGame.pieces[foundGame.players.length]
                     }, (err, createdLivePlayer)=>{
                     	foundPlayer.games.append({
                         	id: foundGame._id,
                         	wasHost: false
                     	});
                     	foundPlayer.save()
-	                    res.render("mainGame", {player: createdLivePlayer});
+	                    res.render("mainGame", {player: createdLivePlayer, piece: createdLivePlayer.piece});
 	                    foundGame.players.append({id: createdLivePlayer._id, name: createdLivePlayer.details.name});
 	                    foundGame.save()
                     });
@@ -163,7 +166,7 @@ app.get("/join-game/:name", (req, res) => {
 
 
 app.get("/start-game", (req, res)=>{
-
+    
 });
 
 app.get("/asdf", (req, res)=>{
@@ -173,3 +176,14 @@ app.get("/asdf", (req, res)=>{
 app.listen(process.env.PORT, () => {
     console.log('Process begun');
 });
+
+remove_item = function(arr, value) {
+ var b = '';
+ for (b in arr) {
+  if (arr[b] === value) {
+   arr.splice(b, 1);
+   break;
+  }
+ }
+ return arr;
+};
