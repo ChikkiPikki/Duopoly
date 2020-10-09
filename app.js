@@ -9,6 +9,19 @@ var LocalStrategy = require("passport-local");
 var session = require("express-session");
 var MongoDBStore = require('connect-mongodb-session')(session);
 var app = express();
+var Player = require("./models/playerData/Player");
+var LivePlayer = require("./models/playerData/LivePlayer");
+var Game = require("./models/gamesData");
+var DeedsData = require("./models/propertyData/Data");
+var Utility = require("./models/propertyData/Utility");
+var Property = require("./models/propertyData/Property");
+var Station = require("./models/propertyData/Station");
+
+var PropertyData = DeedsData[0];
+var StationData = DeedsData[1];
+var UtilityData = DeedsData[2];
+
+
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -17,35 +30,35 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 
 app.set("view engine", "ejs");
-app.use("/resources",express.static('resources'))
+app.use("/resources", express.static('resources'))
 
 
-var store = new MongoDBStore({
-    uri: process.env.DB,
-    collection: 'playerSessions',
+// var store = new MongoDBStore({
+//     uri: process.env.DB,
+//     collection: 'playerSessions',
 
-});
-store.on('error', function(error) {
-    console.log(error);
-});
+// });
+// store.on('error', function(error) {
+//     console.log(error);
+// });
 
-app.use(session({
-    secret: 'Do I need To Worry about copyright? Probably not, I will ask them for a contract',
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 28 // 4 weeks
-    },
-    store: store,
+// app.use(session({
+//     secret: 'Do I need To Worry about copyright? Probably not, I will ask them for a contract',
+//     cookie: {
+//         maxAge: 1000 * 60 * 60 * 24 * 28 // 4 weeks
+//     },
+//     store: store,
 
-    resave: false,
+//     resave: false,
 
-    saveUninitialized: false,
+//     saveUninitialized: false,
 
-}));
+// }));
 
 mongoose.connect(process.env.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-}, function(err) {
+}, (err)=> {
     if (err) {
         console.log(err)
     }
@@ -63,30 +76,34 @@ app.post("/register", (req, res) => {
 
 app.get("/create-game/:name", (req, res) => {
     if (!(req.signedCookies.uuid)) {
-         res.render("login-signup-page", {message: "Please Sign-in or Register before Playing", redirectGame: req.params.name, method: "create"})
+        res.render("login-signup-page", {
+            message: "Please Sign-in or Register before Playing",
+            redirectGame: req.params.name,
+            method: "create"
+        })
     }
 
     Player.findOne({
         uuid: req.signedCookies.uuid
     }, (err, foundPlayer) => {
-        if (err||!(foundPlayer)) {
-            res.redirect("/")
+        if (err || !(foundPlayer)) {
+            res.render("error", (message: "Your Device is Not Authorised, please login or Sign-up first to play"))
         } else {
             Game.create({
                 code: req.params.code,
                 date: new Date(),
                 startedOrEnded: false
-                 
+
             }, (err, newGame) => {
                 if (err) {
                     res.redirect("/")
                 } else {
-                	
+
                     LivePlayer.create({
                         details: {
                             id: foundPlayer._id,
                             name: foundPlayer.name
-                        }, 
+                        },
                         isHost: true,
                         game: {
                             id: newGame._id,
@@ -95,37 +112,50 @@ app.get("/create-game/:name", (req, res) => {
                         notes: [5, 5, 6, 2, 2, 2],
                         isOnPosition: 1,
                         piece: newGame.pieces[0]
-                    }, (err, createdLivePlayer)=>{
-                    		foundPlayer.games.append({
-                        	id: newGame._id,
-                        	wasHost: true
-                    	});
-                    	foundPlayer.save();
-                    	newGame.host = {id:foundPlayer._id, name:foundPlayer.name};
-                        newGame.players.append({id:createdLivePlayer._id, name: createdLivePlayer.details.name});
-                    	newGame.save()
-                    	res.render("game", {player: createdLivePlayer, piece: createdLivePlayer.piece});
+                    }, (err, createdLivePlayer) => {
+                        foundPlayer.games.append({
+                            id: newGame._id,
+                            wasHost: true
+                        });
+                        foundPlayer.save();
+                        newGame.host = {
+                            id: foundPlayer._id,
+                            name: foundPlayer.name
+                        };
 
+                        newGame.players.append({
+                            id: createdLivePlayer._id,
+                            name: createdLivePlayer.details.name
+                        });
+                        newGame.logs.append(createdLivePlayer.name + "created a new game : " + new Date())
+                        newGame.save()
+                        res.render("game", {
+                            player: createdLivePlayer,
+                            piece: createdLivePlayer.piece
+                        });
                     });
-                    
                 };
             });
-
         };
     });
-
 });
 
 app.get("/join-game/:name", (req, res) => {
     if (!(req.signedCookies.uuid)) {
-        res.render("login-signup-page", {message: "Please Sign-in or Register before Playing", redirectGame: req.params.name, method: "join"})
-    }
+        res.render("login-signup-page", {
+            message: "Please Sign-in or Register before Playing",
+            redirectGame: req.params.name,
+            method: "join"
+        });
+    };
 
     Player.findOne({
         uuid: req.signedCookies.uuid
     }, (err, foundPlayer) => {
-        if (err||!(foundPlayer)) {
-            res.render("login-signup-page", {message: "Please Sign-in or Register before Playing"})
+        if (err || !(foundPlayer)) {
+            res.render("login-signup-page", {
+                message: "Please Sign-in or Register before Playing"
+            })
         } else {
             Game.findOne({
                 code: req.params.name,
@@ -147,15 +177,29 @@ app.get("/join-game/:name", (req, res) => {
                         notes: [5, 5, 6, 2, 2, 2],
                         isOnPosition: 1,
                         piece: foundGame.pieces[foundGame.players.length]
-                    }, (err, createdLivePlayer)=>{
-                    	foundPlayer.games.append({
-                        	id: foundGame._id,
-                        	wasHost: false
-                    	});
-                    	foundPlayer.save()
-	                    res.render("mainGame", {player: createdLivePlayer, piece: createdLivePlayer.piece});
-	                    foundGame.players.append({id: createdLivePlayer._id, name: createdLivePlayer.details.name});
-	                    foundGame.save()
+                    }, (err, createdLivePlayer) => {
+                        if (err) {
+                            res.redirect("back")
+                        } else {
+
+                            foundPlayer.games.append({
+                                id: foundGame._id,
+                                wasHost: false
+                            });
+                            foundPlayer.save()
+                            res.render("mainGame", {
+                                player: createdLivePlayer,
+                                piece: createdLivePlayer.piece
+                            });
+                            foundGame.players.append({
+                                id: createdLivePlayer._id,
+                                name: createdLivePlayer.details.name
+                            });
+                            foundGame.logs.append(createdLivePlayer.name + "joined : " + new Date())
+                            foundGame.save()
+
+                        }
+
                     });
 
                 }
@@ -165,25 +209,15 @@ app.get("/join-game/:name", (req, res) => {
 });
 
 
-app.get("/start-game", (req, res)=>{
-    
+app.get("/start-game", (req, res) => {
+
+
 });
 
-app.get("/asdf", (req, res)=>{
-	res.render("sample")
+app.get("/asdf", (req, res) => {
+    res.render("sample")
 });
 
 app.listen(process.env.PORT, () => {
     console.log('Process begun');
 });
-
-remove_item = function(arr, value) {
- var b = '';
- for (b in arr) {
-  if (arr[b] === value) {
-   arr.splice(b, 1);
-   break;
-  }
- }
- return arr;
-};

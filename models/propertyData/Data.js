@@ -80,10 +80,10 @@ var station_kings_cross = new Station("Kings's Cross Station", 6 );
 var station_liverpool_st = new Station("Liverpool St. Station", 36);
 var station_marylebone = new Station("Marylebone Station");
 
-module.exports = {[
+module.exports = [
 			propertyList, stationList, utilityList
 
-		]}
+		]
 
 
 
