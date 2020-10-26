@@ -6,7 +6,7 @@ var Property = new mongoose.Schema({
 	price: Number,
 	name: String,
 	mortgageValue: Number,
-	ownedBy: { 
+	ownedBy: {
 		id:{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "LivePlayer"
@@ -30,6 +30,6 @@ var Property = new mongoose.Schema({
 		name: String
 	},
 	rents: [Number]//normal, set, 1h, 2h, 3h, 4h, hotel
-	
+
 });
 module.exports = mongoose.model("Property", Property)

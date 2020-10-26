@@ -1,69 +1,40 @@
 <!DOCTYPE html>
-<html>
-<head>
-     <style>
-       html,body{
-  overflow-x: scroll;
-  overflow-y: scroll;
-  padding:0;
-}
-    </style>
-	<script src="//cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js">
-    </script><script>
-		
-
-var config = {
-    type: Phaser.AUTO,
-    width: 800*0.8,
-    height: 800*0.8,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 300 },
-            debug: false
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    },
-
-};
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.image('board', '/resources/assets/Monopoly.png');
-    this.load.image('', 'assets/platform.png');
-    this.load.image('', 'assets/star.png');
-    this.load.image('', 'assets/bomb.png');
-    this.load.spritesheet('dude', 
-        'assets/dude.png',
-        { frameWidth: 320, frameHeight: 480 }
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js" integrity="sha512-J7UHpLx39bpqtP+aWP6yIuXroFk0XPkDQaS9zDthM4TVeaXstWYh556gxsXwwIwpAPSoKqVHW+eqz3B93SpyKg==" crossorigin="anonymous"></script>
+    <script>
+    //Create a Pixi Application
+    //Create a Pixi Application
+    let app = new PIXI.Application({
+        width: 256,
+        height: 256,
+        antialias: true,
+        transparent: false,
+        resolution: 1
+      }
     );
-}
 
-var platforms;
+    //Add the canvas that Pixi automatically created for you to the HTML document
+    document.body.appendChild(app.view);
 
-function create ()
-{
-    this.add.image(400*0.8,400*0.8,'board').setDisplaySize(800*0.8, 800*0.8)
+    //load an image and run the `setup` function when it's done
+    PIXI.loader
+      .add("/resources/assets/pieces/piece_boot.png")
+      .load(setup);
 
-    
-}
+    //This `setup` function will run when the image has loaded
+    function setup() {
 
-	function update ()
-	{
+      //Create the cat sprite
+      let cat = new PIXI.Sprite(PIXI.loader.resources["/resources/assets/pieces/piece_boot.png"].texture);
 
-	}
-
-
-	</script>
-	<title>Phaser Try-1</title>
-</head>
-<body>
-
-</body>
+      //Add the cat to the stage
+      app.stage.addChild(cat);
+    }
+    </script>
+  </body>
 </html>

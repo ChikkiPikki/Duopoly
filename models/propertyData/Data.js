@@ -84,6 +84,3 @@ module.exports = [
 			propertyList, stationList, utilityList
 
 		]
-
-
-

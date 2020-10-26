@@ -7,19 +7,19 @@ var mongoose = require("mongoose");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var session = require("express-session");
-var MongoDBStore = require('connect-mongodb-session')(session);
-var app = express();
-var Player = require("./models/playerData/Player");
-var LivePlayer = require("./models/playerData/LivePlayer");
-var Game = require("./models/gamesData");
-var DeedsData = require("./models/propertyData/Data");
-var Utility = require("./models/propertyData/Utility");
-var Property = require("./models/propertyData/Property");
-var Station = require("./models/propertyData/Station");
 
-var PropertyData = DeedsData[0];
-var StationData = DeedsData[1];
-var UtilityData = DeedsData[2];
+var app = express();
+// var Player = require("./models/playerData/Player");
+// var LivePlayer = require("./models/playerData/LivePlayer");
+// var Game = require("./models/gamesData");
+// var DeedsData = require("./models/propertyData/Data");
+// var Utility = require("./models/propertyData/Utility");
+// var Property = require("./models/propertyData/Property");
+// var Station = require("./models/propertyData/Station");
+
+// var PropertyData = DeedsData[0];
+// var StationData = DeedsData[1];
+// var UtilityData = DeedsData[2];
 
 
 
@@ -54,15 +54,24 @@ app.use("/resources", express.static('resources'))
 //     saveUninitialized: false,
 
 // }));
-
-mongoose.connect(process.env.DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, (err)=> {
-    if (err) {
-        console.log(err)
-    }
-});
+//
+// mongoose.connect(process.env.DB, {
+//     useNewUrlParser: true,
+//     useMongoClient: true,
+//     useUnifiedTopology: true
+// }, (err)=> {
+//     if (err) {
+//         console.log(err)
+//     }
+// });
+// mongoose.Promise = global.Promise;
+// const db = mongoose.connection
+// app.use(session({
+//     secret: 'Do I need To Worry about copyright? Probably not, I will ask them for a contract',
+//     resave: false,
+//     saveUninitialized: true,
+//     store: new MongoStore({ mongooseConnection: db })
+// }));
 
 
 
@@ -87,12 +96,15 @@ app.get("/create-game/:name", (req, res) => {
         uuid: req.signedCookies.uuid
     }, (err, foundPlayer) => {
         if (err || !(foundPlayer)) {
-            res.render("error", (message: "Your Device is Not Authorised, please login or Sign-up first to play"))
+            res.render("error", {
+                message: "Your Device is Not Authorised, please login or Sign-up first to play"
+            })
         } else {
             Game.create({
                 code: req.params.code,
                 date: new Date(),
-                startedOrEnded: false
+                startedOrEnded: false,
+                turn: 1
 
             }, (err, newGame) => {
                 if (err) {
@@ -111,7 +123,8 @@ app.get("/create-game/:name", (req, res) => {
                         },
                         notes: [5, 5, 6, 2, 2, 2],
                         isOnPosition: 1,
-                        piece: newGame.pieces[0]
+                        piece: newGame.pieces[0],
+                        turn: 1
                     }, (err, createdLivePlayer) => {
                         foundPlayer.games.append({
                             id: newGame._id,
@@ -129,10 +142,6 @@ app.get("/create-game/:name", (req, res) => {
                         });
                         newGame.logs.append(createdLivePlayer.name + "created a new game : " + new Date())
                         newGame.save()
-                        res.render("game", {
-                            player: createdLivePlayer,
-                            piece: createdLivePlayer.piece
-                        });
                     });
                 };
             });
@@ -161,8 +170,10 @@ app.get("/join-game/:name", (req, res) => {
                 code: req.params.name,
                 startedOrEnded: false
             }, (err, foundGame) => {
-                if (err) {
-                    res.redirect("/");
+                if (err || !(foundGame)) {
+                    res.redirect("404-game-error", {
+                        message: "Game not found, create one by pressing the button below"
+                    });
                 } else {
                     LivePlayer.create({
                         details: {
@@ -176,7 +187,8 @@ app.get("/join-game/:name", (req, res) => {
                         },
                         notes: [5, 5, 6, 2, 2, 2],
                         isOnPosition: 1,
-                        piece: foundGame.pieces[foundGame.players.length]
+                        piece: foundGame.pieces[foundGame.players.length],
+                        trun: foundGame.players.length + 1
                     }, (err, createdLivePlayer) => {
                         if (err) {
                             res.redirect("back")
@@ -187,16 +199,14 @@ app.get("/join-game/:name", (req, res) => {
                                 wasHost: false
                             });
                             foundPlayer.save()
-                            res.render("mainGame", {
-                                player: createdLivePlayer,
-                                piece: createdLivePlayer.piece
-                            });
                             foundGame.players.append({
                                 id: createdLivePlayer._id,
                                 name: createdLivePlayer.details.name
                             });
                             foundGame.logs.append(createdLivePlayer.name + "joined : " + new Date())
                             foundGame.save()
+
+
 
                         }
 
@@ -209,9 +219,55 @@ app.get("/join-game/:name", (req, res) => {
 });
 
 
-app.get("/start-game", (req, res) => {
+app.post("/start/:name", (res, req) => {
+if (!(req.signedCookies.uuid)) {
+    res.render("login-signup-page", {
+        message: "Please sign-in or register before Playing"
+    })
+} else {
+    Player.findOne({
+            uuid: req.body.uuid
+        }, (err, foundPlayer) => {
+            if (err || !(foundPlayer)) {
+                res.redirect("/?message=notsignedup"));
+        }
+        LivePlayer.findOne({
+                details: {
+                    id: foundPlayer._id
+                },
+                game: {
+                    code: req.params.name
+                }
+            }, (err, foundLivePlayer) => {
+                if (err || !(foundLivePlayer)) {
+                    res.redirect("/?message=not")
+                } else {
+                    if (foundLivePlayer.isHost: false) {
+
+                    } else {
+                        Game.findOne({
+                            code: req.params.name,
+                            host: {
+                                id: foundLivePlayer._id
+                            }
+                        }, (err, foundGame) => {
+                            if (err || !(foundGame)) {
+                                res.render(path)
+                            } else {
+
+                            }
+                        })
+                    }
+
+                })
+
+        }
+    })
+
+})
 
 
+};
 });
 
 app.get("/asdf", (req, res) => {
