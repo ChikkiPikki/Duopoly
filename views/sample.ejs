@@ -8,19 +8,20 @@
   padding:0;
 }
     </style>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js">
-    </script><script>
-        
+<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/phaser.min.js" integrity="sha512-JFBBAwh37TdGYMmF7POacSn+VZIMyF7r++1jkkk9tNomuJuK6WIRe1oQQsst9nm/8cq/LAae987H/d0IsYgN8A==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/custom/phaser-arcade-physics.min.js" integrity="sha512-50DcetHpv2wcci+yVL4Nl/NeN8OucjvIzF/BEt5+C7GOdmbOLvYtS0oapPqjvJ9Edy4Q4J8u8X38M7VPmQ7RVw==" crossorigin="anonymous"></script>
+<script>
+
 
 var config = {
     type: Phaser.AUTO,
-    width: 800*0.8,
-    height: 800*0.8,
+    width: 1000,
+    height: 1000,
+    parent: 'phaser-example',
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+
             debug: false
         }
     },
@@ -36,26 +37,65 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('board', '/resources/assets/Monopoly.png');
-    this.load.image('', 'assets/platform.png');
-    this.load.image('', 'assets/star.png');
-    this.load.image('', 'assets/bomb.png');
-    this.load.spritesheet('dude', 
-        'assets/dude.png',
-        { frameWidth: 320, frameHeight: 480 }
-    );
+    this.load.image('boot', '/resources/assets/pieces/piece_boot.png')
+
+
 }
 
 var platforms;
 
 function create ()
 {
-    this.add.image(400*0.8,400*0.8,'board').setDisplaySize(800*0.8, 800*0.8)
+  //   this.setBounds(0, 0, 1600, 1200);
+  //
+  // //  Enable P2 and it will use the updated world size
+  //   this.physics.startSystem(Phaser.Physics.P2JS);
+  // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+  this.scale.pageAlignHorizontally = true;
+  this.scale.pageAlignVertically = true;
 
-    
+    var customBounds =  new Phaser.GameObjects.Rectangle(this, 300,300,200,200)
+
+    this.add.image(400*0.8,400*0.8,'board').setDisplaySize(800*0.8, 800*0.8)
+    // boot = this.physics.add.sprite({
+    //   key:'boot',
+    //   // customBoundsRectangle:customBounds,
+    //   // collideWorldBounds:true,
+    //   x:600,
+    //   y:600,
+    //
+    //
+    // })
+    boot = this.physics.add.sprite(600, 600, "boot").setDisplaySize(800*0.07, 800*0.07)
+    boot.customBoundsRectangle = customBounds;
+    boot.collideWorldBounds = true
+
+    cursors = this.input.keyboard.createCursorKeys();
+    // Phaser.Actions.RandomRectangle(boot, customBounds);
+    this.physics.add.collider(customBounds, boot);
+
+    // this.physics.p2.enable(boot, true);
 }
 
     function update ()
     {
+
+      if(cursors.up.isDown){
+        boot.y-=2
+      }
+      if(cursors.down.isDown){
+        boot.y +=2
+      }
+      if(cursors.left.isDown){
+        boot.x -=2
+      }
+      if(cursors.right.isDown){
+        boot.x+=2
+      }
+      // if(boot.x == 50 && (boot.y>=600 || boot.y<=500)){
+      //   boot.angle+=90
+      // }
+
 
     }
 

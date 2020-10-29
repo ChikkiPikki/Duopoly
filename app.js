@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 
 app.set("view engine", "ejs");
-app.use("/resources", express.static('resources'))
+app.use("/resources", express.static('resources'));
 
 
 // var store = new MongoDBStore({
@@ -76,12 +76,14 @@ app.use("/resources", express.static('resources'))
 
 
 app.get("/", (req, res) => {
-    res.send(req.session.id)
+    res.send(req.session.id);
 });
 app.post("/register", (req, res) => {
     console.log(req.body);
 });
-
+app.get("/asdff",(req, res)=>{
+  res.render("sample2")
+});
 
 app.get("/create-game/:name", (req, res) => {
     if (!(req.signedCookies.uuid)) {
@@ -89,7 +91,7 @@ app.get("/create-game/:name", (req, res) => {
             message: "Please Sign-in or Register before Playing",
             redirectGame: req.params.name,
             method: "create"
-        })
+        });
     }
 
     Player.findOne({
@@ -98,7 +100,7 @@ app.get("/create-game/:name", (req, res) => {
         if (err || !(foundPlayer)) {
             res.render("error", {
                 message: "Your Device is Not Authorised, please login or Sign-up first to play"
-            })
+            });
         } else {
             Game.create({
                 code: req.params.code,
@@ -108,7 +110,7 @@ app.get("/create-game/:name", (req, res) => {
 
             }, (err, newGame) => {
                 if (err) {
-                    res.redirect("/")
+                    res.redirect("/");
                 } else {
 
                     LivePlayer.create({
@@ -140,12 +142,12 @@ app.get("/create-game/:name", (req, res) => {
                             id: createdLivePlayer._id,
                             name: createdLivePlayer.details.name
                         });
-                        newGame.logs.append(createdLivePlayer.name + "created a new game : " + new Date())
-                        newGame.save()
+                        newGame.logs.append(createdLivePlayer.name + "created a new game : " + new Date());
+                        newGame.save();
                     });
-                };
+                }
             });
-        };
+        }
     });
 });
 
@@ -156,7 +158,7 @@ app.get("/join-game/:name", (req, res) => {
             redirectGame: req.params.name,
             method: "join"
         });
-    };
+    }
 
     Player.findOne({
         uuid: req.signedCookies.uuid
@@ -164,7 +166,7 @@ app.get("/join-game/:name", (req, res) => {
         if (err || !(foundPlayer)) {
             res.render("login-signup-page", {
                 message: "Please Sign-in or Register before Playing"
-            })
+            });
         } else {
             Game.findOne({
                 code: req.params.name,
@@ -191,20 +193,20 @@ app.get("/join-game/:name", (req, res) => {
                         trun: foundGame.players.length + 1
                     }, (err, createdLivePlayer) => {
                         if (err) {
-                            res.redirect("back")
+                            res.redirect("back");
                         } else {
 
                             foundPlayer.games.append({
                                 id: foundGame._id,
                                 wasHost: false
                             });
-                            foundPlayer.save()
+                            foundPlayer.save();
                             foundGame.players.append({
                                 id: createdLivePlayer._id,
                                 name: createdLivePlayer.details.name
                             });
-                            foundGame.logs.append(createdLivePlayer.name + "joined : " + new Date())
-                            foundGame.save()
+                            foundGame.logs.append(createdLivePlayer.name + "joined : " + new Date());
+                            foundGame.save();
 
 
 
@@ -213,9 +215,9 @@ app.get("/join-game/:name", (req, res) => {
                     });
 
                 }
-            })
+            });
         }
-    })
+    });
 });
 
 
@@ -223,13 +225,13 @@ app.post("/start/:name", (res, req) => {
 if (!(req.signedCookies.uuid)) {
     res.render("login-signup-page", {
         message: "Please sign-in or register before Playing"
-    })
+    });
 } else {
     Player.findOne({
             uuid: req.body.uuid
         }, (err, foundPlayer) => {
             if (err || !(foundPlayer)) {
-                res.redirect("/?message=notsignedup"));
+                res.redirect("/?message=notsignedup");
         }
         LivePlayer.findOne({
                 details: {
@@ -240,9 +242,9 @@ if (!(req.signedCookies.uuid)) {
                 }
             }, (err, foundLivePlayer) => {
                 if (err || !(foundLivePlayer)) {
-                    res.redirect("/?message=not")
+                    res.redirect("/?message=not");
                 } else {
-                    if (foundLivePlayer.isHost: false) {
+                    if (foundLivePlayer.isHost==false) {
 
                     } else {
                         Game.findOne({
@@ -252,26 +254,26 @@ if (!(req.signedCookies.uuid)) {
                             }
                         }, (err, foundGame) => {
                             if (err || !(foundGame)) {
-                                res.render(path)
+                                res.render(path);
                             } else {
 
                             }
-                        })
+                        });
                     }
 
-                })
+                }
 
         }
-    })
+);
 
-})
+});
 
 
-};
+}
 });
 
 app.get("/asdf", (req, res) => {
-    res.render("sample")
+    res.render("sample");
 });
 
 app.listen(process.env.PORT, () => {

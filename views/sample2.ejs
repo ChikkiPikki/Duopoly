@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Phaser try-2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/phaser.min.js" integrity="sha512-JFBBAwh37TdGYMmF7POacSn+VZIMyF7r++1jkkk9tNomuJuK6WIRe1oQQsst9nm/8cq/LAae987H/d0IsYgN8A==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/custom/phaser-arcade-physics.min.js" integrity="sha512-50DcetHpv2wcci+yVL4Nl/NeN8OucjvIzF/BEt5+C7GOdmbOLvYtS0oapPqjvJ9Edy4Q4J8u8X38M7VPmQ7RVw==" crossorigin="anonymous"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript">
+      var game = new Phaser.Game(1470*0.5, 1464*0.5,  Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+  function preload() {
+    game.load.image('board', '/resources/assets/Monopoly.png');
+   game.load.image('boot', '/resources/assets/pieces/piece_boot.png');
+
+
+  }
+
+  function create() {
+
+  game.physics.startSystem(Phaser.Physics.ARCADE);
+  game.add.image(0,0,'board').scale.setTo(0.5, 0.5);
+  boot = game.add.sprite(670, 670, 'boot').scale.setTo(0.2, 0.2);
+  game.world.setBounds(0, 0, 735, 732);
+  cursors = this.input.keyboard.createCursorKeys();
+
+
+  }
+
+  function update() {
+
+
+      if(cursors.up.isDown){
+        boot.y-=2
+      }
+      if(cursors.down.isDown){
+        boot.y +=2
+      }
+      if(cursors.left.isDown){
+        boot.x -=2
+      }
+      if(cursors.right.isDown){
+        boot.x+=2
+      }
+      // if(boot.x == 50 && (boot.y>=600 || boot.y<=500)){
+      //   boot.angle+=90
+      // }
+
+
+
+  }
+    </script>
+
+  </body>
+</html>
