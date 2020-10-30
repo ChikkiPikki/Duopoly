@@ -3,43 +3,65 @@ var utilityList = [];
 var stationList =[];
 
 class Property{
-	constructor(name, price,  upgradePrice, type, rents, position){
+	constructor(name, price,  upgradePrice, type, rents, position, x, y, width, height){
 		this.name = name;
 		this.price = price;
 		this.upgradePrice = upgradePrice;
 		this.type = type;
-		this.hotelPossible = hotelPossible;
-		if(this.upgradePrice > 0){
-			this.hotelPossible = true
-		}else{
-			this.hotelPossible = false
-		};
 		this.rents = rents;
 		this.mortgageValue = this.price/2;
 		this.position = position;
+		this.x = x;
+		this.y = y;
+		this.width=width;
+		this.height=height;
+		this.hotelPossible = true;
+		switch(this.type){
+			case "brown" :
+			case "dark_blue":
+				this.others = 1;
+				break;
+			default:
+	 		 	this.others = 2;
+				break;
+		}
 		propertyList.append(this);
 
 	}
 };
 
 class Utility{
-	constructor(name, price, position, rent){
+	constructor(name, price, position, rent, x, y, width, height){
 		this.name = name;
 		this.price = price;
 		this.position = position;
 		this.rent = rent;
 		this.mortgageValue = this.price/2;
+		this.x = x;
+		this.y = y;
+		this.width=width;
+		this.height=height;
+		this.hotelPossible=false;
+		this.others=2;
 		utilityList.append(this);
+
 	}
 };
 
 class Station{
-	constructor(name,  position){
+	constructor(name,  position, x, y, width, height){
 		this.name = name;
 		this.price = 200;
 		this.position = position;
 		this.mortgageValue = this.price/2
+		this.x = x;
+		this.y = y;
+		this.width=width;
+		this.height=height;
+		this.hotelPossible = false;
+		this.others=3;
 		stationList.append(this);
+
 	}
 }
 var utility_electric_company = new Utility("Electric Company", 150,13, [4, 10]);
@@ -78,7 +100,7 @@ var yellow_piccadilly = new Property("Picadilly", 280, 150, "yellow", [24, 48, 1
 var station_fenchurch_st = new Station("Fenchurch St. Station", 26);
 var station_kings_cross = new Station("Kings's Cross Station", 6 );
 var station_liverpool_st = new Station("Liverpool St. Station", 36);
-var station_marylebone = new Station("Marylebone Station");
+var station_marylebone = new Station("Marylebone Station", 16);
 
 module.exports = [
 			propertyList, stationList, utilityList

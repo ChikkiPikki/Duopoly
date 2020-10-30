@@ -4,51 +4,88 @@
     <meta charset="utf-8">
     <title>Phaser try-2</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/phaser.min.js" integrity="sha512-JFBBAwh37TdGYMmF7POacSn+VZIMyF7r++1jkkk9tNomuJuK6WIRe1oQQsst9nm/8cq/LAae987H/d0IsYgN8A==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/custom/phaser-arcade-physics.min.js" integrity="sha512-50DcetHpv2wcci+yVL4Nl/NeN8OucjvIzF/BEt5+C7GOdmbOLvYtS0oapPqjvJ9Edy4Q4J8u8X38M7VPmQ7RVw==" crossorigin="anonymous"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/creature.min.js" integrity="sha512-mRkmvl9+Egv4qWF3pdRLGO/DhQPo7nBSntLdnm78ScCQsWSYd1aL0AVGkn/13h0QbpcQUEN4ewbyvpwR/yVfBA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/p2.min.js" integrity="sha512-l67i0Fjsu7+D/UM0ZRllTgQx4Nmz5GVpkpbrnXGfYs9PuU4sNJToKxd0mfaOaLrgQ3Ti0r+ybJj9lRXiigjoBg==" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2//custom/phaser-arcade-physics.min.js" integrity="sha512-50DcetHpv2wcci+yVL4Nl/NeN8OucjvIzF/BEt5+C7GOdmbOLvYtS0oapPqjvJ9Edy4Q4J8u8X38M7VPmQ7RVw==" crossorigin="anonymous"></script> -->
+    <style>
+    canvas{
+      padding:0;
+      margin:0;
+    }
+    </style>
 
   </head>
   <body>
     <script type="text/javascript">
-      var game = new Phaser.Game(1470*0.5, 1464*0.5,  Phaser.AUTO, '', { preload: preload, create: create, update: update });
+      var game = new Phaser.Game(1000,1000,  Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
   function preload() {
     game.load.image('board', '/resources/assets/Monopoly.png');
-   game.load.image('boot', '/resources/assets/pieces/piece_boot.png');
+   game.load.image('boot', '/resources/assets/pieces/piece_boot.png')
+
 
 
   }
 
   function create() {
+  cursors = game.input.keyboard.createCursorKeys();
+  game.stage.backgroundColor = '#2d2d2d';
+    game.add.image(0,0,'board');
+    bounds = new Phaser.Rectangle(867,867, 135, 135);
 
-  game.physics.startSystem(Phaser.Physics.ARCADE);
-  game.add.image(0,0,'board').scale.setTo(0.5, 0.5);
-  boot = game.add.sprite(670, 670, 'boot').scale.setTo(0.2, 0.2);
-  game.world.setBounds(0, 0, 735, 732);
-  cursors = this.input.keyboard.createCursorKeys();
+
+    //  Create a graphic so you can see the bounds
+    graphics = game.add.graphics(bounds.x, bounds.y);
+    graphics.beginFill(0x000077);
+    graphics.drawRect(0, 0, bounds.width, bounds.height);
+
+    //
+
+
+    // 10 644
+    bounds2 = new Phaser.Rectangle(0, 867, 135, 135);
+    graphics2 = game.add.graphics(bounds2.x, bounds2.y);
+    graphics2.beginFill(0x000077);
+    graphics2.drawRect(0, 0, bounds2.width, bounds2.height);
+    boot = game.add.sprite(670, 670, 'boot');
+    boot.width = boot.width/5
+    boot.height=boot.height/5
+    boot.inputEnabled = true;
+    boot.anchor.set(0.5);
+
+    boot.input.enableDrag();
+    boot.input.boundsRect = bounds;
+
+    bounds3 = new Phaser.Rectangle(787,899,79,101);
+    graphics3 = game.add.graphics(bounds3.x, bounds3.y);
+    graphics3.beginFill(0x794C39);
+    graphics3.drawRect(0, 0, bounds3.width, bounds3.height);
+
+
 
 
   }
 
-  function update() {
+  function update()
+  {
+    if(boot.x < 100){
+      boot.input.boundsRect = bounds2;
+    }else if (boot.x>638){
+      boot.input.boundsRect = bounds;
+    }
+    if(cursors.up.isDown){
+      boot.y-=2
 
-
-      if(cursors.up.isDown){
-        boot.y-=2
-      }
-      if(cursors.down.isDown){
-        boot.y +=2
-      }
-      if(cursors.left.isDown){
-        boot.x -=2
-      }
-      if(cursors.right.isDown){
-        boot.x+=2
-      }
-      // if(boot.x == 50 && (boot.y>=600 || boot.y<=500)){
-      //   boot.angle+=90
-      // }
-
+    }
+    if(cursors.down.isDown){
+      boot.y +=2
+    }
+    if(cursors.left.isDown){
+      boot.x -=2
+    }
+    if(cursors.right.isDown){
+      boot.x+=2
+    }
 
 
   }
