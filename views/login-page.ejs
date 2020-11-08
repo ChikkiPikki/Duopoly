@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script><script  src="/resources/js/home-page.js"></script>
+
+  <title>Duopoly || Welcome!</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway:300,600" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'><link rel="stylesheet" href="/resources/css/home-page.css">
+<style type="text/css">
+	#yay{
+		
+	}
+</style>
+<script type="text/javascript">
+    
+    $(document).ready(function() {
+    $(document).on('submit', '#loginForm', function() {
+      
+   
+
+
+    event.preventDefault();
+    $.ajax({
+        global: false,
+        type: 'POST',
+        url: "/login",
+        dataType: 'html',
+        data: {
+            username: $("#loginUsername").val(),
+            password: $("#loginPassword").val()
+          
+            
+        },
+        success: function (result) {
+            alert("loggedin")
+            
+        },
+        error: function (request, status, error) {
+            alert("no")
+        }
+      
+     });
+})
+
+  });
+    $(document).ready(function(){
+      $(document).on("submit", "registerForm", function(){
+       event.preventDefault();
+    $.ajax({
+        global: false,
+        type: 'POST',
+        url: "/register",
+        dataType: 'html',
+        data: {
+            name: $("#name")
+            username: $("#username").val(),
+            password: $("#password").val(),
+            email: $("#email")
+          
+            
+        },
+        success: function (result) {
+            alert("loggedin")
+            
+        },
+        error: function (request, status, error) {
+            alert("no")
+        }
+      
+     });
+
+      });
+    })
+    
+    
+    
+  </script>
+</head>
+<body id="yay">
+<!-- partial:index.partial.html -->
+<div class="container">
+   <section id="formHolder">
+
+      <div class="row">
+
+         <!-- Brand Box -->
+         <div class="col-sm-6 brand">
+            <a href="#" class="logo">TANAY SHAH'S <span></span></a>
+
+            <div class="heading">
+               <h2>Duopoly</h2>
+               <p>Play With Friends!</p>
+            </div>
+
+            <div class="success-msg">
+               <p>Great! You are one of our members now</p>
+               <a href="#" class="profile">Your Profile</a>
+            </div>
+         </div>
+
+
+         <!-- Form Box -->
+         <div class="col-sm-6 form">
+
+            <!-- Login Form -->
+            <div class="login form-peice switched">
+               <form class="login-form" id="loginForm" >
+                  <div class="form-group">
+                     <label for="username">Username</label>
+                     <input type="text" name="username" id="loginUsername" required>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="loginPassword">Password</label>
+                     <input type="password" name="loginPassword" id="loginPassword" required>
+                  </div>
+
+                  <div class="CTA">
+                     <input type="submit" value="Login">
+                     <a href="#" class="switch">I'm New</a>
+                  </div>
+               </form>
+            </div><!-- End Login Form -->
+
+
+            <!-- Signup Form -->
+            <div class="signup form-peice">
+               <form class="signup-form" action="#" method="post">
+
+                  <div class="form-group">
+                     <label for="name">Full Name</label>
+                     <input type="text" name="username" id="name" class="name">
+                     <span class="error"></span>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="email">Email Address</label>
+                     <input type="email" name="email" id="email" class="email">
+                     <span class="error"></span>
+                  </div>
+                  <div class="form-group">
+                     <label for="newUsername">Desired Username</label>
+                     <input type="text" name="newUsername" id="newUsername" class="newUsername">
+                     <span class="error"></span>
+                  </div>
+
+                  
+
+                  <div class="form-group">
+                     <label for="password">Password</label>
+                     <input type="password" name="password" id="password" class="pass">
+                     <span class="error"></span>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="passwordCon">Confirm Password</label>
+                     <input type="password" name="passwordCon" id="passwordCon" class="passConfirm">
+                     <span class="error"></span>
+                  </div>
+
+                  <div class="CTA">
+                     <input type="submit" value="Signup Now" id="submit">
+                     <a href="#" class="switch">I have an account
+                     </a>
+                  </div>
+               </form>
+            </div><!-- End Signup Form -->
+         </div>
+      </div>
+
+   </section>
+
+
+  
+
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+</body>
+</html>

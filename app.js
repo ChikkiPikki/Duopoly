@@ -76,10 +76,24 @@ app.use("/resources", express.static('resources'));
 
 
 app.get("/", (req, res) => {
-    res.send(req.session.id);
+    res.render("home-page")
 });
-app.post("/register", (req, res) => {
-    console.log(req.body);
+app.post("/login", (req, res) => {
+	console.log(req.body)
+    var username = req.body.username;
+    var password = req.body.username;
+    // Player.findOne({name:username, password:password})
+});
+app.post("/register", (req, res)=>{
+	var username = req.body.username;
+	var password = req.body.password;
+	var name = req.body.name;
+	var email = req.body.email;
+	// Player.findOne({req.body.username}, function(err, foundPlayer){
+		// if(foundPlayer){
+			// res.write("We are sorry, but a user with the same username already exists, please keep a different username")
+		// }
+	// })
 });
 app.get("/asdff",(req, res)=>{
   res.render("sample2")
