@@ -78,6 +78,9 @@ app.use("/resources", express.static('resources'));
 app.get("/", (req, res) => {
     res.render("home-page")
 });
+app.get("/login", (req, res)=>{
+    res.render("login-signup-page")
+});
 app.post("/login", (req, res) => {
 	console.log(req.body)
     var username = req.body.username;
@@ -289,7 +292,23 @@ if (!(req.signedCookies.uuid)) {
 app.get("/asdf", (req, res) => {
     res.render("sample");
 });
-
+app.get("/credits", (req, res)=>{
+	res.render("credits-page");
+});
+app.get("/devtalk", (req, res)=>{
+	res.render("devtalk")
+});
+app.get("/blog", (req, res)=>{
+	res.redirect("https://read-a-lot.herokuapp.com")
+});
+app.get("/bugs", (req, res)=>{
+	res.render("bugs-page")
+});
+app.post("/bugs", (req, res)=>{
+	res.render("bug-reported", {message: "Your issue has been reported. We will get to you soon"});
+	var issue = req.body.issue
+	var userEmail = req.body.email
+});
 app.listen(process.env.PORT, () => {
     console.log('Process begun');
 });

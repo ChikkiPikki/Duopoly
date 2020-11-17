@@ -1,11 +1,11 @@
 body {
-  background-color: #000;
+  background-color: #85ef47;
     font-family: 'Quicksand', sans-serif;
 }
 
 
 #title {
-  background-color: #ffd800;
+  background-color: #00bd56;
   color: #fff;
   position: fixed;
   width: 100%;
@@ -28,7 +28,7 @@ body {
   margin-bottom:0;
 }
 
-.astronaut {
+.buildings{
   text-align: center;
 }
 
@@ -61,7 +61,7 @@ body {
 
 .footer{
   text-align:center;
-  background-color: #000;
+  background-color: #9cf196;
   padding: 1% 2%;
   font-size: 1.05rem;
 }
