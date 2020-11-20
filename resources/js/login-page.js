@@ -1,4 +1,3 @@
-/*global $, document, window, setTimeout, navigator, console, location*/
 $(document).ready(function () {
 
     'use strict';

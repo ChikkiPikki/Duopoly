@@ -1,8 +1,20 @@
 body {
   background-color: #85ef47;
-    font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
+p {
+  color: #fff;
+  font-size: 1.25rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00bd56;
+}
 
 #title {
   background-color: #00bd56;
@@ -10,9 +22,10 @@ body {
   position: fixed;
   width: 100%;
   padding-bottom: 0;
+  z-index: 9;
 }
 
-.top{
+.top {
   margin: 5px;
 }
 
@@ -25,10 +38,10 @@ body {
   font-size: 1rem;
   color: #fff;
   font-weight: 600;
-  margin-bottom:0;
+  margin-bottom: 0;
 }
 
-.buildings{
+.buildings {
   text-align: center;
 }
 
@@ -52,16 +65,34 @@ body {
   text-align: center;
 }
 
-
-.carousel-item{
-  padding:7% 15%;
+.carousel-item {
+  padding: 7% 15%;
   text-align: center;
 }
 
+#features {
+  padding: 5% 5%;
+  background-color: #85ef47;
+  position: relative;
+}
 
-.footer{
-  text-align:center;
-  background-color: #9cf196;
-  padding: 1% 2%;
-  font-size: 1.05rem;
+.feature-box {
+  text-align: center;
+  padding: 4%
+}
+
+.fas {
+  color: #00bd56;
+}
+
+.fas:hover {
+  color: #fff;
+}
+
+.footer {
+  padding: 3% 2%;
+  background-color: #a8ff3e;
+  color: #fff;
+  text-align: center;
+  width: 100%;
 }

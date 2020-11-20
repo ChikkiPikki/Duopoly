@@ -92,6 +92,7 @@ app.post("/register", (req, res)=>{
 	var password = req.body.password;
 	var name = req.body.name;
 	var email = req.body.email;
+	console.log(req.body);
 	// Player.findOne({req.body.username}, function(err, foundPlayer){
 		// if(foundPlayer){
 			// res.write("We are sorry, but a user with the same username already exists, please keep a different username")
