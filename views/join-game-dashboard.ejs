@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Play Duopoly!</title>
+	<%-include ("links.ejs")%>
+	<!-- <link rel="stylesheet" type="text/css" href="/resources/css/join-game-dashboard.css"> -->
+	<style type="text/css">
+body {
+  background-color: #85ef47;
+  font-family: 'Quicksand', sans-serif;
+}
+
+p {
+  color: #fff;
+  font-size: 1.25rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00bd56;
+}
+
+#title {
+  background-color: #00bd56;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  padding-bottom: 0;
+  z-index: 9;
+}
+
+.top {
+  margin: 5px;
+}
+
+.navbar-brand {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.maker {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.buildings {
+  text-align: center;
+}
+
+#heading {
+  padding-top: 150px;
+  text-align: center;
+}
+
+.heading-text {
+  color: #fff;
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.play {
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: 600;
+  margin-right: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.carousel-item {
+  padding: 7% 15%;
+  text-align: center;
+}
+
+#features {
+  padding: 5% 5%;
+  background-color: #85ef47;
+  position: relative;
+}
+
+.feature-box {
+  text-align: center;
+  padding: 4%
+}
+
+.footer {
+  padding: 3% 2%;
+  background-color: #a8ff3e;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+}
+
+		.heading{
+			color: white;
+		}
+		.spaceButton{
+			height: 60px;
+			width: 200px;
+			border-radius: 30px;
+
+		}
+		.jumbotron{
+			background-color: RGB(0, 128, 0, 0.5);
+		}
+		.container{
+			text-decoration-color: white;
+		}
+		button:nth-of-type(2){
+
+		}
+		nav{
+			padding-bottom: 50px;
+		}
+		i{
+			color: rgba(0,0,255,0.4); margin-bottom: 30px;
+			color: rgba(0,0,255,0.4);
+		}
+		i:hover{
+ 		 color: white;
+		}
+		.display-3{
+			color:rgba(255,255,0,0.6);
+		}
+		.jumbotron{
+			padding-top:30px;
+			padding-bottom:30px;
+		}
+		.theDiv{
+			margin-right:40px; margin-left:40px; padding-top:40px; padding-bottom: 10%; padding-top: 10%
+		}
+
+
+
+	</style>
+
+</head>
+<body>
+	<%- include ("navbar.ejs")%>
+	<script>
+		document.getElementById("names").textContent = "";
+
+
+	</script>
+	<div style="padding-top: 200px;"></div>
+
+	<center><div class="container jumbotron" style="margin:auto">
+		<h1  class="heading display-4">DUOPOLY</h1>
+		<h1 class="display-5">The classic board game, now online</h1>
+		<h1  class=" display-3">Play with Friends</h1>
+
+
+	</center></div>
+	<div class="container" style="padding-top: 50px;">
+		<div class="row align-items-center justify-content-center">
+
+			<div class="col-md-5 jumbotron theDiv" style="padding-top:7%">
+				<center><i class="fas fa-users fa-10x"  style=""></i></center>
+
+				<h1> Join a friend's Game by entering the game code!</h1>
+				
+				<hr>
+				<form class="">
+					<div class="form-group">
+    					<label for="gameCode">Game Code</label>
+    					<input type="text" class="form-control" id="gameCode" aria-describedby="gameCode" placeholder="Enter the game code">
+  					</div>
+				<center><button class="btn btn-sm btn-info spaceButton" type="submit">Join this game</button></center>
+
+
+				</form>
+			</div>
+			<div class="col-md-5 jumbotron theDiv" >
+				<center><i class="fas fa-server fa-10x"  style=""></i></center>
+				<h1>Host a game and share the code with your friends to play with 'em!</h1><hr>
+				<center>
+					<button class="btn btn-sm btn-warning spaceButton">Create a game</button>
+										
+				</center>				
+			</div>
+		</div>
+	</div><hr>
+	<%- include ("bottom-navbar.ejs")%>
+
+</body>
+</html>

@@ -78,8 +78,17 @@ app.use("/resources", express.static('resources'));
 app.get("/", (req, res) => {
     res.render("home-page")
 });
+app.get("/samplee", (req, res)=>{
+	res.render("logo-sample")
+});
 app.get("/login", (req, res)=>{
     res.render("login-signup-page")
+});
+app.get("/play-a-game", (req, res)=>{
+	res.render("join-game-dashboard")
+});
+app.get("/home", (req, res)=>{
+	res.render("dashboard");
 });
 app.post("/login", (req, res) => {
 	console.log(req.body)
@@ -249,7 +258,7 @@ if (!(req.signedCookies.uuid)) {
             uuid: req.body.uuid
         }, (err, foundPlayer) => {
             if (err || !(foundPlayer)) {
-                res.redirect("/?message=notsignedup");
+                res.redirect("/login?message=unauthorised");
         }
         LivePlayer.findOne({
                 details: {
