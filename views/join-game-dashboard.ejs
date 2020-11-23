@@ -1,145 +1,234 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Play Duopoly!</title>
 	<%-include ("links.ejs")%>
 	<!-- <link rel="stylesheet" type="text/css" href="/resources/css/join-game-dashboard.css"> -->
 	<style type="text/css">
-body {
-  background-color: #85ef47;
-  font-family: 'Quicksand', sans-serif;
-}
 
-p {
-  color: #fff;
-  font-size: 1.25rem;
-  text-align: center;
-  font-weight: 600;
-}
+		*::selection{
+			background-color: limegreen;
+		}
+		body {
+			background-color: #85ef47;
+			font-family: 'Quicksand', sans-serif;
+		}
 
-h3 {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #00bd56;
-}
+		p {
+			color: #fff;
+			font-size: 1.25rem;
+			text-align: center;
+			font-weight: 600;
+		}
 
-#title {
-  background-color: #00bd56;
-  color: #fff;
-  position: fixed;
-  width: 100%;
-  padding-bottom: 0;
-  z-index: 9;
-}
+		h3 {
+			font-size: 2rem;
+			font-weight: bold;
+			color: #00bd56;
+		}
 
-.top {
-  margin: 5px;
-}
+		#title {
+			background-color: #00bd56;
+			color: #fff;
+			position: fixed;
+			width: 100%;
+			padding-bottom: 0;
+			z-index: 9;
+		}
 
-.navbar-brand {
-  font-size: 3rem;
-  font-weight: bold;
-}
+		.top {
+			margin: 5px;
+		}
 
-.maker {
-  font-size: 1rem;
-  color: #fff;
-  font-weight: 600;
-  margin-bottom: 0;
-}
+		.navbar-brand {
+			font-size: 3rem;
+			font-weight: bold;
+		}
 
-.buildings {
-  text-align: center;
-}
+		.maker {
+			font-size: 1rem;
+			color: #fff;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
 
-#heading {
-  padding-top: 150px;
-  text-align: center;
-}
+		.buildings {
+			text-align: center;
+		}
 
-.heading-text {
-  color: #fff;
-  font-size: 4rem;
-  font-weight: bold;
-}
+		#heading {
+			padding-top: 150px;
+			text-align: center;
+		}
 
-.play {
-  font-size: 1.5rem;
-  color: #fff;
-  font-weight: 600;
-  margin-right: 30px;
-  margin-bottom: 20px;
-  text-align: center;
-}
+		.heading-text {
+			color: #fff;
+			font-size: 4rem;
+			font-weight: bold;
+		}
 
-.carousel-item {
-  padding: 7% 15%;
-  text-align: center;
-}
+		.play {
+			font-size: 1.5rem;
+			color: #fff;
+			font-weight: 600;
+			margin-right: 0px;
+			margin-bottom: 20px;
+			text-align: center;
+		}
 
-#features {
-  padding: 5% 5%;
-  background-color: #85ef47;
-  position: relative;
-}
+		.carousel-item {
+			padding: 7% 15%;
+			text-align: center;
+		}
 
-.feature-box {
-  text-align: center;
-  padding: 4%
-}
+		#features {
+			padding: 5% 5%;
+			background-color: #85ef47;
+			position: relative;
+		}
 
-.footer {
-  padding: 3% 2%;
-  background-color: #a8ff3e;
-  color: #fff;
-  text-align: center;
-  width: 100%;
-}
+		.feature-box {
+			text-align: center;
+			padding: 4%
+		}
 
-		.heading{
+		.footer {
+			padding: 3% 2%;
+			background-color: #a8ff3e;
+			color: #fff;
+			text-align: center;
+			width: 100%;
+		}
+
+		.heading {
 			color: white;
 		}
-		.spaceButton{
+
+		.spaceButton {
 			height: 60px;
 			width: 200px;
-			border-radius: 30px;
+			border-radius: 50px;
+			font-weight: 900;
+			font-size: 20px
+		}
 
+		.jumbotron {
+			background-color: rgb(133, 239, 71)
 		}
-		.jumbotron{
-			background-color: RGB(0, 128, 0, 0.5);
-		}
-		.container{
+
+		.container {
 			text-decoration-color: white;
 		}
-		button:nth-of-type(2){
 
-		}
-		nav{
-			padding-bottom: 50px;
-		}
-		i{
-			color: rgba(0,0,255,0.4); margin-bottom: 30px;
-			color: rgba(0,0,255,0.4);
-		}
-		i:hover{
- 		 color: white;
-		}
-		.display-3{
-			color:rgba(255,255,0,0.6);
-		}
-		.jumbotron{
-			padding-top:30px;
-			padding-bottom:30px;
-		}
-		.theDiv{
-			margin-right:40px; margin-left:40px; padding-top:40px; padding-bottom: 10%; padding-top: 10%
+		nav {
+			padding-bottom: 0px;
 		}
 
+		i {
+			color: rgba(0, 0, 255, 0.4);
+			margin-bottom: 0px;
+			color: rgba(0, 0, 255, 0.4);
+		}
+
+		i:hover {
+			color: white;
+		}
+
+		.display-3 {
+			color: rgba(255, 255, 0, 0.9);
+		}
+
+		.jumbotron {
+			padding-top: 0px;
+			padding-bottom: 0px;
+		}
+
+		.theDiv {
+			margin-right: 40px;
+			margin-left: 40px;
+			padding-top: 40px;
+			padding-bottom: 10%;
+			padding-top: 10%
+		}
 
 
+		.theHead {
+			padding-right: 0px;
+			padding-left: 0px;
+			scroll-padding: 50px 0 0 50px;
+		}
+
+
+		.display-5 {
+			
+			/* animation-name: example;
+			animation-duration: 1s;
+			animation-iteration-count: infinite; */
+			margin-bottom: 70px;
+		}
+
+		@keyframes example {
+			0% {
+				font-size: 0px;
+			}
+
+			12.5% {
+				font-size: 32.5px;
+			}
+
+			25% {
+				font-size: 35px;
+			}
+
+			37.5% {
+				font-size: 37.5px;
+			}
+
+			50% {
+				font-size: 0px;
+			}
+
+			62.5% {
+				font-size: 37.5px;
+			}
+
+			75% {
+				font-size: 35px;
+			}
+
+			87.5% {
+				font-size: 32.5px;
+			}
+
+			100% {
+				font-size: 0px;
+			}
+
+		}
+
+		@keyframes faa {
+			0% {
+				color: green;
+			}
+
+			100% {
+				color: white;
+			}
+		}
+
+		i {
+			color: green;
+		}
+
+		i:hover {
+			animation: faa;
+			animation-duration: 1s;
+		}
 	</style>
 
 </head>
+
 <body>
 	<%- include ("navbar.ejs")%>
 	<script>
@@ -149,43 +238,53 @@ h3 {
 	</script>
 	<div style="padding-top: 200px;"></div>
 
-	<center><div class="container jumbotron" style="margin:auto">
-		<h1  class="heading display-4">DUOPOLY</h1>
-		<h1 class="display-5">The classic board game, now online</h1>
-		<h1  class=" display-3">Play with Friends</h1>
-
-
-	</center></div>
-	<div class="container" style="padding-top: 50px;">
+	<center>
+		<div class="container jumbotron theHead" style="margin:auto">
+			<h1 class="heading display-4"><span
+					style="background-color: white; color: green; font-weight: 900;">DUOPOLY</span></h1>
+			<h1 class="display-4">The classic board game<br> <span
+					style="color:white;background-color: rgba(255, 0, 0, 0.9); font-weight: 900;">MONOPOLY</span>,<BR>
+				now online</h1>
+			<h1 class="display-5">By Tanay and Yatee</h1>
+			<h1 class=" display-3">Play Now!</h1>
+	</center>
+	</div>
+	<div class="container" style="padding-top: 0px;">
 		<div class="row align-items-center justify-content-center">
-
-			<div class="col-md-5 jumbotron theDiv" style="padding-top:7%">
-				<center><i class="fas fa-users fa-10x"  style=""></i></center>
-
+			<div class="col-md-5 jumbotron theDiv align-items-start"
+				style="padding-top:7%;padding-right: 40px; margin-right: 0px; border-right:2px solid green;">
+				<center><i class="fas fa-users fa-10x"></i></center>
 				<h1> Join a friend's Game by entering the game code!</h1>
 				
-				<hr>
 				<form class="">
 					<div class="form-group">
-    					<label for="gameCode">Game Code</label>
-    					<input type="text" class="form-control" id="gameCode" aria-describedby="gameCode" placeholder="Enter the game code">
-  					</div>
-				<center><button class="btn btn-sm btn-info spaceButton" type="submit">Join this game</button></center>
-
-
+						<label for="gameCode">Game Code</label>
+						<input type="text" class="form-control" id="gameCode" aria-describedby="gameCode"
+							placeholder="Enter the game code">
+					</div>
+					<hr>
+					<center><button class="btn btn-sm btn-info spaceButton" type="submit">Join this game</button>
+					</center>
 				</form>
+				<hr>
+				
 			</div>
-			<div class="col-md-5 jumbotron theDiv" >
-				<center><i class="fas fa-server fa-10x"  style=""></i></center>
-				<h1>Host a game and share the code with your friends to play with 'em!</h1><hr>
+
+			<div class="col-md-5 jumbotron theDiv secondDiv align-items-start" style="margin-left: 0px; padding-left:40px;">
+				<center><i class="fas fa-server fa-10x"></i></center>
+				<h1>Host a game and share the code with your friends to play with 'em!</h1><br>
+				<hr>
 				<center>
 					<button class="btn btn-sm btn-warning spaceButton">Create a game</button>
-										
-				</center>				
+				</center>
+				<hr><br>
 			</div>
+
 		</div>
-	</div><hr>
+	</div>
+	<hr>
 	<%- include ("bottom-navbar.ejs")%>
 
 </body>
+
 </html>

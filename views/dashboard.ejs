@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Welcome to Duopoly!</title>
+	<%-include ("links.ejs")%>
+	<link rel="stylesheet" type="text/css" href="/resources/css/home-page.css">
+	<style type="text/css">
+		.avatarClass {
+			background-color: white;
+			border-radius: 50%;
+			height: 200px;
+			width: 200px;
+
+			border-color: blue;
+			border: 5px solid lime;
+			margin-top: 30px;
+
+
+
+
+
+		}
+
+		.photoClass {
+			border: 5px solid rgba(0, 0, 0, 1);
+			box-sizing: content-box;
+			padding-bottom: 200px;
+			border-radius: 30px;
+
+
+			padding-right: 30px;
+			padding-left: 30px;
+
+		}
+
+		.infoOne {
+			padding-bottom: 200px;
+		}
+
+		.heading {
+			color: rgba(241, 19, 19, 0.6);
+		}
+	</style>
+</head>
+
+<body>
+
+	<%-include ("navbar.ejs")%>
+	<script>
+		document.getElementById("names").textContent = "";
+
+
+	</script>
+	<div class="container" style="padding-top: 150px;">
+		<center>
+			<h1 class="display-3 heading">Your Info and Stats</h1>
+		</center>
+		<div class="row justify-content-center">
+			<div class="col-md-5">
+				<div class="container-fluid">
+					<div class="row justify-content-center">
+						<div class="col-md-12 photoClass">
+							<center>
+								<div class="jumbotron avatarClass">
+									<div class="avatar">
+										supp
+									</div>
+								</div>
+							</center>
+						</div>
+						<div class="col-md-12 infoOne">
+							sup
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5 statsClass">
+				sup
+			</div>
+		</div>
+	</div>
+	<%- include ("bottom-navbar.ejs")%>
+</body>
+
+</html>

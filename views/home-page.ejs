@@ -9,12 +9,20 @@
 
 <%- include ("links.ejs")%>
     <link rel="stylesheet" href="/resources/css/home-page.css">
-
+<style>
+  .display-5{
+    font-size: 1.5rem;
+    padding-bottom: 20px;
+  }
+</style>
 </head>
 
 <body>
 
   <%- include ("navbar.ejs")%>
+  <script>
+    document.getElementById("names").textContent = "";
+  </script>
 
   <section id="heading">
     <div>
@@ -23,6 +31,7 @@
       <p class="heading-text">
         Duopoly
       </p>
+      <h1 class="display-5">By Tanay and Yatee</h1>
       <button type="button" class="btn btn-lg btn-success play">Play Now!</button>
       <button type="button" class="btn btn-lg btn-dark play">Invite Friends</button>
       </div>

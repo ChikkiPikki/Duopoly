@@ -84,9 +84,13 @@ h3 {
 .fas {
   color: #00bd56;
 }
-
+@keyframes examplee{
+  from{}
+  to{color:white}
+}
 .fas:hover {
-  color: #fff;
+  animation: examplee;
+  animation-duration: 1s;
 }
 
 .footer {
