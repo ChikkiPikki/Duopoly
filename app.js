@@ -340,6 +340,6 @@ app.post("/bugs", (req, res) => {
   var issue = req.body.issue;
   var userEmail = req.body.email;
 });
-app.listen(8080, () => {
+app.listen(process.env.PORT, () => {
   console.log("Process begun");
 });
