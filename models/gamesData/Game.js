@@ -2,11 +2,12 @@ var mongoose = require("mongoose");
 
 var Game = new mongoose.Schema({
 	players: [
-		id: {
-			type: mongoose.Schema.types.objectId,
+		{id: {
+			type: mongoose.Schema.Types.ObjectId,
 			ref: "LivePlayer"
 		},
 		name: String
+	}
 	],
 	turn: Number,
 	code: String,
@@ -28,7 +29,7 @@ var Game = new mongoose.Schema({
 
 
 function arrShuf(array){
-	for(let i = array.length — 1; i > 0; i--){
+	for(var i = array.length - 1; i > 0; i--){
   		const j = Math.floor(Math.random() * i)
   		const temp = array[i]
   		array[i] = array[j]

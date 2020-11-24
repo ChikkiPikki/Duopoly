@@ -218,13 +218,14 @@
 		}
 
 		i {
-			color: green;
+			color: #00bd56;
+			transition: color .5s ease-in-out,background-color .5s ease-in-out,border-color .5s ease-in-out,box-shadow .5s ease-in-out;
 		}
-
+/* 
 		i:hover {
 			animation: faa;
 			animation-duration: 1s;
-		}
+		} */
 	</style>
 
 </head>
@@ -233,6 +234,7 @@
 	<%- include ("navbar.ejs")%>
 	<script>
 		document.getElementById("names").textContent = "";
+		$("#playBtn").remove();
 
 
 	</script>

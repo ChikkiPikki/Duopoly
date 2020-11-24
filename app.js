@@ -1,4 +1,5 @@
-//Required modules
+//Required modules\
+require("dotenv").config()
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
@@ -9,17 +10,17 @@ var LocalStrategy = require("passport-local");
 var session = require("express-session");
 
 var app = express();
-// var Player = require("./models/playerData/Player");
-// var LivePlayer = require("./models/playerData/LivePlayer");
-// var Game = require("./models/gamesData");
-// var DeedsData = require("./models/propertyData/Data");
-// var Utility = require("./models/propertyData/Utility");
-// var Property = require("./models/propertyData/Property");
-// var Station = require("./models/propertyData/Station");
+var Player = require("./models/playerData/Player");
+var LivePlayer = require("./models/playerData/LivePlayer");
+var Game = require("./models/gamesData/Game");
+var DeedsData = require("./models/propertyData/Data");
+var Utility = require("./models/propertyData/Utility");
+var Property = require("./models/propertyData/Property");
+var Station = require("./models/propertyData/Station");
 
-// var PropertyData = DeedsData[0];
-// var StationData = DeedsData[1];
-// var UtilityData = DeedsData[2];
+var PropertyData = DeedsData[0];
+var StationData = DeedsData[1];
+var UtilityData = DeedsData[2];
 
 app.use(
   bodyParser.urlencoded({
@@ -54,15 +55,15 @@ app.use("/resources", express.static("resources"));
 
 // }));
 //
-// mongoose.connect(process.env.DB, {
-//     useNewUrlParser: true,
-//     useMongoClient: true,
-//     useUnifiedTopology: true
-// }, (err)=> {
-//     if (err) {
-//         console.log(err)
-//     }
-// });
+mongoose.connect(process.env.DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).catch(err=>{
+  console.log(err.message);
+})
+console.log(process.env["DB"])
+console.log(process.env["PORT"])
+PORT = process.env.PORT;
 // mongoose.Promise = global.Promise;
 // const db = mongoose.connection
 // app.use(session({

@@ -81,16 +81,23 @@ h3 {
   padding: 4%
 }
 
-.fas {
-  color: #00bd56;
-}
+
 @keyframes examplee{
   from{}
   to{color:white}
 }
-.fas:hover {
-  animation: examplee;
-  animation-duration: 1s;
+i {
+  color: rgba(0, 0, 255, 0.4);
+  margin-bottom: 0px;
+  color: rgba(0, 0, 255, 0.4);
+}
+
+i:hover {
+  color: white;
+}
+i {
+  color: #00bd56;
+  transition: color .5s ease-in-out,background-color .5s ease-in-out,border-color .5s ease-in-out,box-shadow .5s ease-in-out;
 }
 
 .footer {
