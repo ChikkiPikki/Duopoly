@@ -1,3 +1,3 @@
-# duopoly-online
-A non-commercialised trial version of the game Monopoly as Duopoly, but online
+#Duopoly
+An adaptation of the game Monpoly as Duopoly, but online
 
