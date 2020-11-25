@@ -14,11 +14,22 @@ app.use(
     extended: true,
   })
 );
+let authorized = false;
 
-app.get("/game/:gameCode", (req, res)=>{
-    res.render("cross-server-trial.ejs", {
-        date: new Date(),
-        ip: req.ip,
+function checkAuth(req, res, next) {
+  if (authorized) {
+    next();
+  } else {
+    res.status(403).send("Unauthorized!");
+    return;
+  }
+}
 
-    })
-})
+app.use("/", checkAuth);
+
+// app.get("/", (req, res) => {
+//   res.send("sup");
+// });
+app.listen("8080", () => {
+  console.log("up and running");
+});

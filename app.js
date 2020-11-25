@@ -33,45 +33,6 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 app.use("/resources", express.static("resources"));
 
-// var store = new MongoDBStore({
-//     uri: process.env.DB,
-//     collection: 'playerSessions',
-
-// });
-// store.on('error', function(error) {
-//     console.log(error);
-// });
-
-// app.use(session({
-//     secret: 'Do I need To Worry about copyright? Probably not, I will ask them for a contract',
-//     cookie: {
-//         maxAge: 1000 * 60 * 60 * 24 * 28 // 4 weeks
-//     },
-//     store: store,
-
-//     resave: false,
-
-//     saveUninitialized: false,
-
-// }));
-//
-mongoose.connect(process.env.DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).catch(err=>{
-  console.log(err.message);
-})
-console.log(process.env["DB"])
-console.log(process.env["PORT"])
-PORT = process.env.PORT;
-// mongoose.Promise = global.Promise;
-// const db = mongoose.connection
-// app.use(session({
-//     secret: 'Do I need To Worry about copyright? Probably not, I will ask them for a contract',
-//     resave: false,
-//     saveUninitialized: true,
-//     store: new MongoStore({ mongooseConnection: db })
-// }));
 
 app.get("/", (req, res) => {
   res.render("home-page");
@@ -340,6 +301,12 @@ app.post("/bugs", (req, res) => {
   });
   var issue = req.body.issue;
   var userEmail = req.body.email;
+});
+app.get("/privacy-policy", (req, res)=>{
+  res.render("privacy-policy");
+});
+app.get("/terms-and-conditions", (req, res)=>{
+  res.render("terms-and-conditions");
 });
 app.listen(process.env.PORT, () => {
   console.log("Process begun");
