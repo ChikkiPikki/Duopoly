@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Thank you</title>
+        <%- include ("links.ejs")%>
+        <link rel="stylesheet" href="/resources/css/home-page.css">
+        <style>
+           
+        </style>
+
+    </head>
+    <body>
+        <%- include ("navbar.ejs")%>
+        <div class="container" style="padding-top:200px;">
+            <h1 class="display-3">Thank you for reporting this bug</h1>
+        <hr>
+            <p><%=message%>.</p>
+            <h4 style="text-align: center;">Your Issue Id: <%=code%></h4>
+            <% if(email){%>
+                <h5 style="text-align: center;">Your email : <%=email%></h3>
+            <%}%>
+            <h5 style="text-align: center;">Your Issue : <%=issue%></h5>
+
+        </div>
+        
+
+        <%- include ("bottom-navbar.ejs")%>
+
+
+    </body>
+</html>

@@ -23,7 +23,6 @@
   <%- include ("navbar.ejs")%>
   <script>
     document.getElementById("names").textContent = "";
-    
   </script>
 
   <section id="heading">
@@ -34,7 +33,7 @@
         Duopoly
       </p>
       <h1 class="display-5">By Tanay and Yatee</h1>
-      <button type="button" class="btn btn-lg btn-success play">Play Now!</button>
+      <a type="button" id="playBtn" class="btn btn-lg btn-success play" href="/play-a-game">Play Now!</a>
       <button type="button" class="btn btn-lg btn-dark play">Invite Friends</button>
       </div>
   </section>
@@ -97,7 +96,7 @@
 
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script src="game.js"></script>
+      
 </body>
 
 </html>

@@ -296,11 +296,15 @@ app.get("/bugs", (req, res) => {
   res.render("bugs-page");
 });
 app.post("/bugs", (req, res) => {
+  var issue = req.body["issue-description"];
+  var userEmail = req.body.email;
   res.render("bug-reported", {
     message: "Your issue has been reported. We will get to you soon",
+    issue: issue,
+    email:userEmail,
+    code: "DaCode"
   });
-  var issue = req.body.issue;
-  var userEmail = req.body.email;
+  
 });
 app.get("/privacy-policy", (req, res)=>{
   res.render("privacy-policy");

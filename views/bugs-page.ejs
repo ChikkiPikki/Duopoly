@@ -6,7 +6,7 @@
 		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<%- include ("links.ejs")%>
 
-	<link rel="stylesheet" type="text/css" href="/resources/css/login-page.css">
+	<!-- <link rel="stylesheet" type="text/css" href="/resources/css/login-page.css"> -->
 	<link rel="stylesheet" type="text/css" href="/resources/css/home-page.css">
 
 	<style type="text/css">
@@ -61,16 +61,15 @@
 
 			<fieldset>
 				<label for='issue-description'>Describe your issue below</label><br>
-				<textarea id='issue-description' style="background-color: #343a40;" name='issue-description'></textarea>
+				<textarea id='issue-description' required style="background-color: #343a40;" name='issue-description'></textarea>
 				<hr>
 			</fieldset>
 			<fieldset>
 				<label for='email'>
 					<h2>Your email address</h2>
 				</label>
-				<p class="helper">Please provide your email address if you are happy for us to contact you when the bug
-					has been fixed or in case we need additional information.</p>
-				<input type="email" id='email' style="background-color: #343a40;" name='email'>
+				<p class="helper">Please provide your email address to contact you when the bug	has been fixed or in case we need additional information.</p>
+				<input type="email" id='email' style="background-color: #343a40;" name='email' required>
 			</fieldset>
 			<input type="hidden" id="client-info" name="client-info" value=''>
 			<noscript>
